@@ -1,0 +1,20 @@
+services:
+  dock-db:
+    image: mongo:5.0
+    container_name: dock-database
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - 27017:27017
+  dock-api:
+    build: .
+    container_name: dock-api
+    env_file:
+      - .env
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./dist:/app/dist
